@@ -1,0 +1,20 @@
+<h2> Edit Reviews </h2> 
+
+
+
+<%= form_for @review do |f| %>
+
+<%= f.label :body %>
+<%= f.text_area :body %> <br>
+
+<%= f.label :rating %>
+<%= f.select :rating, (1..5).to_a %> <br>
+
+
+<% if user_signed_in? && current_user.is_admin %>
+<%= link_to "Edit", edit_review_path(@review.body) %>
+
+<%= link_to "destroy", review_path(@review.body), method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
+<%= f.submit "Add to review" %>
+<% end %>

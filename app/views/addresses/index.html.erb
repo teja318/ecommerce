@@ -1,0 +1,27 @@
+</h2> Listing Address </h2>
+ <table border="1">
+  <thead>
+  <tr>
+  <th> sl no </th>
+  <th> Name </th>
+  <th> Street </th>
+  <th> Landmark </th>
+  <th>  City </th>
+  <th> Pin </th>
+  
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <% @addresses.each_with_index do |address, index| %>
+  <td><%= index + 1 %></td>
+  <td><%= address.user.username %>
+  <td><%= address.street %></td>
+  <td><%= address.landmark %></td>
+  <td><%= address.city %></td>
+  <td><%= address.pin %></td>
+  </tr>
+  </tbody>
+  <% end %>
+  </table>
+  <%= link_to "Add Address", new_address_path %>

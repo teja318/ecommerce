@@ -1,0 +1,49 @@
+<h2> edit products </h2>
+<h2>Add Product </h2>
+
+<%= form_for @product do |f| %>
+
+<% if @product.errors.any? %>
+	<h3> these are  the errors prohibitted from the begin saved : </h3>
+    <ul>
+    <% @product.errors.full_messages.each do  |msg| %>
+    <li><%= msg %></li>
+    <% end %>
+    </ul>
+    <% end %>
+<label>Code : </label> <br>
+<%= f.text_field :code, placeholder: "enter the code" %> <br>
+
+<label>Name : </label> </br>
+<%= f.text_field :name, placeholder: "enter product name" %> </br>
+<span id="nameError"> </span>
+
+<label>Description : </label> </br>
+<%= f.text_area :description %> </br>
+
+<label>Price :</label>
+<%= f.text_field :price, min:1 %> </br>
+
+<label>Category_id : </label> </br>
+<%= f.collection_select :category_id, Category.all, :id, :name, prompt: "Select Category" %> </br>
+
+<label>Stock : </label> <br>
+<%= f.number_field :stock %> <br>
+
+<label>Cod_eligible : </label> 
+<%= check_box_tag :cod_eligible %> <br>
+
+<%= f.submit %> or <%= link_to "back", products_path %>
+<% end %>
+
+<script>
+var nameHandle = document.getElementById('product_name');
+var nameErrorHandle = document.getElementById('nameError');
+
+nameHandle.onblur = function(){
+
+if(nameHandle.value == ""){ 
+	nameErrorHandle.innerHttml = "can't be blank";
+	}else {
+		nameErrorHandle.innerHttml = "";
+	</script>

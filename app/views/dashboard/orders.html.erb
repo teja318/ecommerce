@@ -1,0 +1,15 @@
+<h3> Dashboard Order </h3>
+
+<p> Total no of times same product is ordered </p>
+<% total_product = {} %>
+
+<% @orders.each do |order| %>
+<% total_product[order.id] = OrderLineItem.joins(:products).where('order_line_items.product_id = ?', product.id).length %>
+
+<% end %>
+<%= pie_chart(total_product) %>
+<%= bar_chart(total_product) %>
+
+
+
+ 

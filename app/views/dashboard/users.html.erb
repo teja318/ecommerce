@@ -1,0 +1,44 @@
+<h1>Dashboard users</h1>
+
+
+<p> Total orders placed </p>
+<% total_orders = {} %>
+<% @users.each do |user| %>
+<% if user.is_admin? %>
+<% else %>
+
+	<% total_orders[user.username] = user.orders.length %>
+<% end %>
+<% end %>
+<%= pie_chart(total_orders) %>
+<%= bar_chart(total_orders) %>
+
+<p> Income of user </p>
+<% income = {} %>
+<% @users.each do |user| %>
+<% if user.is_admin? %>
+<% else %>
+<% sum = 0 %>
+<% user.orders.each do |order| %>
+<%= order.total %>
+<%= sum += order.total %>
+
+<% income[user.username] = user.orders.sum(:total) %>
+<% end %>
+<% end %>
+<% end %>
+<%= pie_chart(income) %>
+
+
+<p> Income_total of user </p>
+<% income_total = {} %>
+<% @users.each do |user| %>
+<% if user.is_admin? %>
+<% else %>
+<% income_total[user.username] = user.orders.pluck(:total).sum(:total) %>
+<% end %>
+<% end %>
+
+<%= pie_chart(income_total) %>
+
+

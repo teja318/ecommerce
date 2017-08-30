@@ -1,0 +1,15 @@
+<h2> Listing Reviews </h2>
+ <% if @reviews.empty? %>
+<p>No reviews found</p>
+	<% else %>
+ <ul>
+
+ <% @reviews.each do |review| %>
+ <li> user : <%= review.user.username %> <br> body : <%= review.body %> <br> rating : <%= review.rating %> <br> product : <%= review.product.name %> </li>
+
+ <% end %>
+ <% end %>
+</ul>
+<% if user_signed_in? && current_user.is_admin %>
+<% end %> 
+<%= link_to "Add reviews", reviews_path %> 
