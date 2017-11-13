@@ -21,6 +21,7 @@ class CartLineItemsController < ApplicationController
   #afetr saving cartlineitem it is use to return back & 
   end
  end
+ 
  def update 
  @cart_line_item = CartLineItem.find(params[:id])
  	if @cart_line_item.update_attributes(params[:cart_line_item].permit(:quantity))

@@ -9,40 +9,33 @@
 <%= f.submit "Add to cart" %>
 <% end %>
 
-<ol>
+
+
+
+
 <h2> Listing reviews(<%= @product.reviews.length %>) </h2>
+<ul id="reviewList" > 
 <% @product.reviews.each do |review| %>
-<li>REVIEW - <%#= review.user.id %> - <%= review.body %>	- <%= review.product.name %> - <%= review.rating %> 
-	 <% if current_user.id == review.user_id %> 
-		<%= link_to "edit", edit_review_path(review) %>
-		<%= link_to "destroy", review, method: :delete %>
+<li>REVIEW- <%= review.body %>	 - <%= review.rating %> 
+	 <% if review.user_id == current_user.id %> 
+		<%#= link_to "edit", edit_review_path(review) %>
+		<%= link_to "destroy", review_path(review.id),method: :delete, data: {confirm: "Are you sure?"} %> 
 	<% end %>
 </li>
   <% end %>
-</ol>
-<%= form_for @review do |f| %>
+  </ul>
+<div id="errorMsg"></div>
+<%= render '/reviews/form' %></br>
 
-<%= f.label :body %>
-<%= f.text_area :body %> <br>
-
-<%= f.label :rating %>
-<%= f.select :rating, (1..5).to_a %> <br>
-<%= f.hidden_field :product_id, value: @product.id %>
-
-<% if user_signed_in? && current_user.is_admin %>
-<%= link_to "Edit", edit_product_path(@product.id) %>
-<%= link_to "destroy", product_path(@product.id), method: :delete, data: {confirm: "Are you sure?"} %>
-<% end %>
-<%= f.submit "Add to review" %>
-<% end %>
 
 
 <%= link_to @product.category.name, category_path(@product.category_id) %>
-
 <%= link_to "lisiting products", products_path %>
 <% if user_signed_in? && current_user.is_admin %>
 <%= link_to "Edit", edit_product_path(@product.id) %>
 
 <%= link_to "destroy", product_path(@product.id), method: :delete, data: {confirm: "Are you sure?"} %>
 <% end %>
+
+
 

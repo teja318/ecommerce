@@ -1,0 +1,12 @@
+<h2>Listing Products</h2>
+<% @products.each do |product| %>
+<%= product.name %></br>
+
+<%#= product.reviews.length %>
+<ol>
+<% product.reviews.each do |review| %>
+<%#= review.user.username %></br>
+<%= review.body %></br>
+<%end%>
+</ol> 
+<%end%>

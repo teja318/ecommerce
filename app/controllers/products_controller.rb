@@ -6,8 +6,16 @@ before_action :authenticate_user!, except: [:index, :show]
 before_action :check_is_admin, except: [:index, :show]
 
 def index
-
-	@products = Product.all
+   sleep(1)
+   if params[:offset]
+   	@products = Product.offset(params[:offset]).limit(10)
+   else
+	@products = Product.limit(10)
+   end
+  respond_to do |format|
+	format.html
+	format.json {render json: {products: @products}}
+  end
 end 
 
 def new

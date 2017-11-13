@@ -14,6 +14,7 @@ class CategoriesController < ApplicationController
   # GET /categories/1.json
   def show
   #@products = Product.where('category_id = ?', @category.id)
+  @sub_categories = SubCategory.where('category_id = ?', @category.id)
   end
 
   # GET /categories/new

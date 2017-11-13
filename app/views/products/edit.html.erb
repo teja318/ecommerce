@@ -1,5 +1,5 @@
 <h2> edit products </h2>
-<h2>Add Product </h2>
+
 
 <%= form_for @product do |f| %>
 
@@ -33,7 +33,7 @@
 <label>Cod_eligible : </label> 
 <%= check_box_tag :cod_eligible %> <br>
 
-<%= f.submit %> or <%= link_to "back", products_path %>
+<%= f.submit  %> or <%= link_to "back", products_path %>
 <% end %>
 
 <script>

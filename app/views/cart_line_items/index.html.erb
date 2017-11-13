@@ -31,9 +31,9 @@
 	<%= f.select :quantity, (1..10).to_a %>  
 	<%= f.submit "update" %> 
 	<% end %></td>
-   <td><%= line_item.product.price * line_item.quantity %> </td>
-    <% sum +=  line_item.product.price * line_item.quantity %>
-    <td><%= link_to "remove", cart_line_item_path(line_item.id), method: :delete %> </td>
+   <td><%= (line_item.product.price) * (line_item.quantity) %> </td>
+    <% sum = sum + line_item.product.price * line_item.quantity %>
+    <td><%= link_to "Remove", cart_line_item_path(line_item.id), method: :delete %> </td>
 
     <td><%= form_for @wish_list do |f| %>
      <%= f.hidden_field :product_id, value: line_item.product_id %>
@@ -44,12 +44,12 @@
 <% end %> 
 </tbody>
 	</table>
-  Cart Total <%= sum %>
+  <h4>Cart Total <%= sum %></h4>
  
  
   <%= form_for @order do |f| %>
  <label>Address : </label> </br>
- <%= f.collection_select :address_id, current_user.addresses, :id, :street %> </br>
+ <%= f.collection_select :address_id, current_user.addresses, :id, :street, prompt: "select address" %> </br>
  
  <%= f.submit "Checkout" %>
  <% end %>

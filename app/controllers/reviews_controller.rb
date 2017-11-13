@@ -4,20 +4,27 @@ class ReviewsController < ApplicationController
   def index
  	@reviews = Review.all
   end
- def create
+  def create
 	@review = Review.new(params[:review].permit(:product_id, :user_id, :body, :rating))
-   
    @review.user_id = current_user.id
 
-   if @review.save
-    Notification.review_confirmation(@review).deliver!
-   redirect_to :back, notice: "successfully added review to the product" 
+     respond_to do |format|
+      if @review.save
+        # Notification.review_confirmation(@review).deliver!
+        format.html {redirect_to :back, notice: "successfully added review to the product"}
+        format.js
+      else
+        format.js
+      end
    end
- end
+  end
  def edit 
  	@review = Review.find(params[:id])
  end
- 
+ def show
+  @review = Review.find(params[:id])
+  @review.user_id = current_user.id
+ end
  def update
   @review = Review.find(params[:id])
   if @review.update_attributes(params[:review].permit(:product_id, :user_id, :body, :rating))

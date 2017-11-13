@@ -1,0 +1,98 @@
+<%= form_for(@vendor, remote: true) do |f| %>
+  <% if @vendor.errors.any? %>
+    <!-- <div id="error_explanation">
+    </div> -->
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+    <span id="nameError"></span>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email %>
+    <span id="emailError"></span>
+  </div>
+  <div class="field">
+    <%= f.label :mobile %><br>
+    <%= f.text_field :mobile %>
+    <span id="mobileError"></span>
+  </div>
+  <div class="actions" id="submit">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+<script>  
+   var alphabetFormatter = /^[A-Za-z]+$/;
+   var emailFormatter = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+  
+   var mobileFormatter = /^[0-9]+$/;
+
+
+  var nameHandle = document.getElementById('vendor_name');
+ var emailHandle = document.getElementById('vendor_email');
+ var mobileHandle = document.getElementById('vendor_mobile');  
+
+  var nameErrorHandle = document.getElementById('nameError');
+  var emailErrorHandle = document.getElementById('emailError');
+  var mobileErrorHandle = document.getElementById('mobileError');
+    
+    validate = {
+          "name": false,
+          "email": false,
+          "mobile": false
+
+          }
+  
+  var submitHandle = document.getElementById('submit');
+   submitHandle.addEventListener('click', function(e){
+         if(validate.name || validate.email || validate.mobile){
+        return true
+       }else {
+          e.preventDefault();
+       }
+        
+        if(nameHandle.value == "") {
+          nameErrorHandle.innerHTML = "Can't be blank";
+          validate.name = false;
+         }else if(!alphabetFormatter.test(nameHandle.value)) {
+           nameErrorHandle.innerHTML = "Should only be alphabets";
+           validate.name = false;
+         }else{
+          validate.name = true; 
+
+         }if (emailHandle.value== "") {
+           emailErrorHandle.innerHTML = "Cant be blank"; 
+           validate.email = false;
+         }else if (!emailFormatter.test(emailHandle.value)) {
+           emailErrorHandle.innerHTML = "should a valid format";
+           validate.email = false;
+         } else {
+           validate.email = true;
+         
+         } if (mobileHandle.value== "") {
+             mobileErrorHandle.innerHTML = "Cant be blank";
+             validate.mobile = false;
+         }else if (!mobileFormatter.test(mobileHandle.value)){
+            mobileErrorHandle.innerHTML = "should be a number";
+            validate.mobile = false;
+         }else if (mobileHandle.value.length != 10) {
+             mobileErrorHandle.innerHTML = "should be 10 digits";
+             validate.mobile = false;
+         }else{
+            validate.mobile = true;
+         }
+
+
+     },false);
+
+
+
+
+   </script>
+            
+
+
+

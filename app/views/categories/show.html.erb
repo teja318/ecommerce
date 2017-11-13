@@ -1,15 +1,34 @@
-<p id="notice"><%= notice %></p>
-<p>
-<strong>Name:</strong>
-<%= @category.name %> 
- </p>
-  
-<h2>lisiting products(<%= @category.products.length %>) </h2>
-  
-<% @category.products.each do |product|  %>
-<li> <%= link_to product.name, product_path(product.id) %> <% product.price %> </li>
+ <p id="notice"><%= notice %></p>
 
-<% end %>
+ <h1><strong>Name:</strong>
+ <%= @category.name %></h1> 
+ 
+ <ol>
+ <h2>Listing SubCategories(<%= @category.sub_categories.length %>)</h2>
+ <% @category.sub_categories.each do |sub_category| %></br>
+ <h3>SubCategory: <%= sub_category.name %></h3><br>
+ 
+
+ <h2>Lisiting Products(<%= sub_category.products.length %>)</h2></br>
+  <% sub_category.products.each do |product| %></br>
+ Product: <%= product.name %></br>
+
+<h2>Listing reviews(<%= product.reviews.length %>)</h2>
+<% product.reviews.each do |review| %></br>
+Review: <%= review.body %></br>
+  
+  <%end%>
+</ol>
+<%end%>
+
+
+
+<%# @category.products.each do |product|  %>
+ <%#= link_to product.name, product_path(product.id) %> <%# product.price %>
+ <%# end %>
+
+
+<% end %> 
 
 <% if user_signed_in? %>
 
